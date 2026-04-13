@@ -21,9 +21,15 @@
     <ClCompile Include="processLauncher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ProcessMonitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\processLauncher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ProcessMonitor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
