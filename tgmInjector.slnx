@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="tgmInjector/tgmInjector.vcxproj" Id="ddf238a6-cca8-403c-b59f-74985a445a5a">
+    <Platform Solution="Debug|x64" Project="Win32" />
+  </Project>
+</Solution>
