@@ -127,12 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="config.cpp" />
     <ClCompile Include="injector.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="processLauncher.cpp" />
     <ClCompile Include="processMonitor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\config.h" />
     <ClInclude Include="include\injector.h" />
     <ClInclude Include="include\processLauncher.h" />
     <ClInclude Include="include\processMonitor.h" />
