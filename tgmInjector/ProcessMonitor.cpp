@@ -1,12 +1,16 @@
 #include "include/ProcessMonitor.h"
 #include <TlHelp32.h>
-#include <unordered_set>
 #include <iostream>
 
-static std::unordered_set<DWORD> knownPIDs;
+static const wchar_t* TARGET_PROCESS = L"game.exe";
+
+ProcessMonitor::ProcessMonitor()
+{
+	selfPID = GetCurrentProcessId();
+}
 
 // uses Tool Help to capture all running processes in the system
-void CaptureInitialProcesses() {
+void ProcessMonitor::CaptureInitialProcesses() {
 	HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
 	if (snapshot == INVALID_HANDLE_VALUE) {
@@ -24,15 +28,22 @@ void CaptureInitialProcesses() {
 	}
 
 	CloseHandle(snapshot);
-
 	std::cout << "Initial snapshot has been created. \n";
 }
 
-DWORD WaitForNewProcesses() {
+bool ProcessMonitor::IsNewProcess(DWORD pid) {
+	if (pid == 0 || pid == selfPID) {
+		return false;
+	}
+
+	return knownPIDs.find(pid) == knownPIDs.end();
+}
+
+DWORD ProcessMonitor::WaitForGame() {
 	PROCESSENTRY32 entry;
 	entry.dwSize = sizeof(entry);
 
-	// Polls every 10 ms for our any new process that may appear and returns any new process that comes in
+	// Polls every 10 ms for our any new process that may appear and returns when game is found
 	while (true) {
 		HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
@@ -42,13 +53,15 @@ DWORD WaitForNewProcesses() {
 		}
 		if (Process32FirstW(snapshot, &entry)) {
 			do {
-				if (knownPIDs.find(entry.th32ProcessID) == knownPIDs.end()) {
+				if (IsNewProcess(entry.th32ProcessID)) {
 					knownPIDs.insert(entry.th32ProcessID);
 
 					std::wcout << L"New process: " << entry.szExeFile << L"(PID: " << entry.th32ProcessID << L") \n";
 
 					CloseHandle(snapshot);
-					return entry.th32ProcessID;
+					if (_wcsicmp(entry.szExeFile, TARGET_PROCESS) == 0) {
+						return entry.th32ProcessID;
+					}
 				}
 			} while (Process32NextW(snapshot, &entry));
 		}

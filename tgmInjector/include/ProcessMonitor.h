@@ -1,5 +1,17 @@
 #pragma once
 #include <windows.h>
+#include <unordered_set>
 
-void CaptureInitialProcesses();
-DWORD WaitForNewProcesses();
+class ProcessMonitor {
+public:
+	ProcessMonitor();
+
+	void CaptureInitialProcesses();
+	DWORD WaitForGame();
+private:
+	std::unordered_set<DWORD> knownPIDs;
+	DWORD selfPID;
+	bool IsNewProcess(DWORD pid);
+};
+
+
