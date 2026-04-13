@@ -69,8 +69,9 @@ int main() {
     std::cout << "Starting process monitor... \n";
     CaptureInitialProcesses();
 
+    // MENTAL NOTE: Launch this app in TGM3's directory for testing
     std::cout << "Starting typex_loader.exe... \n";
-    ProcessHandle loader = LaunchProcess(L"typex_loader.exe", true);
+    ProcessHandle loader = LaunchProcess(L"typex_loader.exe", L"game.exe", true);
     if (!loader.valid) {
         std::cout << "ERROR: loader has failed, please check if typex_loader is in the same directory as this executable.";
         return 1;

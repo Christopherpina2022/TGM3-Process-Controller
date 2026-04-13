@@ -2,7 +2,7 @@
 #include <iostream>
 
 // Starts the incoming process in a suspended state
-ProcessHandle LaunchProcess(const wchar_t* path, bool suspended) {
+ProcessHandle LaunchProcess(const wchar_t* path, const wchar_t* args, bool suspended) {
 	STARTUPINFO si;
 	ZeroMemory(&si, sizeof(si));
 	si.cb = sizeof(si);
@@ -12,9 +12,18 @@ ProcessHandle LaunchProcess(const wchar_t* path, bool suspended) {
 	
 	DWORD flags = suspended ? CREATE_SUSPENDED : 0;
 
+	std::wstring cmdLine;
+
+	if (args)
+	{
+		cmdLine = std::wstring(path) + L" " + args;
+	}
+
+	const wchar_t* finalCmd = args ? cmdLine.c_str() : nullptr;
+
 	BOOL result = CreateProcessW(
 		path,
-		NULL,
+		const_cast<LPWSTR>(finalCmd),
 		NULL,
 		NULL,
 		FALSE,

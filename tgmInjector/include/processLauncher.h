@@ -6,5 +6,5 @@ struct ProcessHandle {
 	BOOL valid;
 };
 
-ProcessHandle LaunchProcess(const wchar_t* path, bool suspended);
+ProcessHandle LaunchProcess(const wchar_t* path, const wchar_t* args = nullptr, bool suspended = false);
 void CloseProcessHandle(ProcessHandle& handle);
