@@ -21,7 +21,10 @@
     <ClCompile Include="processLauncher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ProcessMonitor.cpp">
+    <ClCompile Include="processMonitor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="injector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +32,10 @@
     <ClInclude Include="include\processLauncher.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ProcessMonitor.h">
+    <ClInclude Include="include\processMonitor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\injector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

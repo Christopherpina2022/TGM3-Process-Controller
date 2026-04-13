@@ -1,8 +1,10 @@
 #include "include/ProcessMonitor.h"
+#include "include/injector.h"
 #include <TlHelp32.h>
 #include <iostream>
 
 static const wchar_t* TARGET_PROCESS = L"game.exe";
+static const char* DLL_PATH = "tgmPatch.dll";
 
 ProcessMonitor::ProcessMonitor()
 {
@@ -46,11 +48,11 @@ DWORD ProcessMonitor::WaitForGame() {
 	// Polls every 10 ms for our any new process that may appear and returns when game is found
 	while (true) {
 		HANDLE snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
-
 		if (snapshot == INVALID_HANDLE_VALUE) {
 			std::cout << "ERROR: CaptureInitialProcesses could not write a snapshot. \n";
 			return NULL;
 		}
+
 		if (Process32FirstW(snapshot, &entry)) {
 			do {
 				if (IsNewProcess(entry.th32ProcessID)) {
@@ -60,6 +62,8 @@ DWORD ProcessMonitor::WaitForGame() {
 
 					CloseHandle(snapshot);
 					if (_wcsicmp(entry.szExeFile, TARGET_PROCESS) == 0) {
+						std::cout << "Injecting DLL... \n";
+						InjectDLL(entry.th32ProcessID, DLL_PATH);
 						return entry.th32ProcessID;
 					}
 				}

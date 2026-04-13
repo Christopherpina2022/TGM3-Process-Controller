@@ -18,7 +18,7 @@ int main() {
     }
 
     std::cout << "Process created. PID: " << loader.pi.dwProcessId << "\n";
-    std::cout << "Press ENTER to resume the loader... \n";
+    std::cout << "Press ENTER to resume the loader... \n"; // TEMP: Pause the loader so we can setup for monitoring
     std::cin.get();
 
     std::cout << "Resuming process... \n";
