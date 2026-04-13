@@ -1,8 +1,9 @@
 #include <windows.h>
 #include <tlhelp32.h>
 #include <iostream>
+#include "include/processLauncher.h"
 
-DWORD GetProcessIdByName(const wchar_t* processName)
+/*DWORD GetProcessIdByName(const wchar_t* processName)
 {
     PROCESSENTRY32W entry;
     entry.dwSize = sizeof(PROCESSENTRY32W);
@@ -26,9 +27,9 @@ DWORD GetProcessIdByName(const wchar_t* processName)
 
     CloseHandle(snapshot);
     return 0;
-}
+} */
 
-int main() {
+/*
     DWORD pid = 0;
     const char* dllPath = "tgmPatch.dll";
 
@@ -61,6 +62,24 @@ int main() {
     std::cout << "Injected successfully!\n";
     CloseHandle(hThread);
     CloseHandle(hProcess);
+    */
+
+int main() {
+    
+    ProcessHandle loader = LaunchProcess(L"typex_loader.exe", true);
+    if (!loader.valid) {
+        return 1;
+    }
+
+    std::cout << "Process created. PID: " << loader.pi.dwProcessId << "\n";
+
+    std::cout << "Press ENTER to resume the process... \n";
+    std::cin.get();
+
+    std::cout << "Resuming process... \n";
+    ResumeThread(loader.pi.hThread);
+
+    std::cout << "Process resumed. \n";
 
     return 0;
 }
