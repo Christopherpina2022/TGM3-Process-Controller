@@ -21,26 +21,12 @@ ProcessHandle LaunchProcess(const wchar_t* path, const wchar_t* args, bool suspe
 
 	const wchar_t* finalCmd = args ? cmdLine.c_str() : nullptr;
 
-	BOOL result = CreateProcessW(
-		path,
-		const_cast<LPWSTR>(finalCmd),
-		NULL,
-		NULL,
-		FALSE,
-		flags,
-		NULL,
-		NULL,
-		&si,
-		&pi
-	);
+	BOOL result = CreateProcessW(path, const_cast<LPWSTR>(finalCmd), NULL, NULL, FALSE, flags, NULL, NULL, &si, &pi);
 
 	if (!result) {
 		std::cout << "Failed to launch process. \n";
 		return { {}, false };
 	}
-
-	std::cout << "Process launched. \n";
-	std::cout << "PID: " << pi.dwProcessId << "\n";
 
 	return { pi, true };
 }
