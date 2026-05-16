@@ -6,7 +6,8 @@
 #include "include/injector.h"
 #include "include/config.h"
 
-static const char* DLL_PATH = "tgmPatch.dll";
+static const char* WRAPPER_PATH = "wrapperPatch.dll";
+static const char* TGM_PATH = "tgmPatch.dll";
 
 int main(int argc, char* argv[]) {
     // launch Typex_loader.exe Game.exe
@@ -20,10 +21,11 @@ int main(int argc, char* argv[]) {
     std::cout << "Process created. PID: " << loader.pi.dwProcessId << "\n";
 
     // Inject DLL file into typexLoader then continue thread
-    InjectDLL(loader.pi.dwProcessId, DLL_PATH);
-    ResumeThread(loader.pi.hThread);
+    InjectDLL(loader.pi.dwProcessId, WRAPPER_PATH);
+    
 
     std::cin.get(); // Holds console so it doesn't auto clear
+    ResumeThread(loader.pi.hThread);
 
     return 0;
 }
