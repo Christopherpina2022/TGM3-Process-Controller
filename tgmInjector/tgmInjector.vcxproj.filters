@@ -21,9 +21,6 @@
     <ClCompile Include="processLauncher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="processMonitor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="injector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

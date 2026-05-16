@@ -131,7 +131,6 @@
     <ClCompile Include="injector.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="processLauncher.cpp" />
-    <ClCompile Include="processMonitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\config.h" />
